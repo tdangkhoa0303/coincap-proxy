@@ -12,7 +12,7 @@ const app = express();
 app.use(cors());
 
 // Configuration
-const PORT = 1402;
+const PORT = process.env.PORT | 1402;
 const API_SERVICE_URL = "https://pro-api.coinmarketcap.com";
 
 // Logging
@@ -26,6 +26,10 @@ app.use('/v1/cryptocurrency/listings/latest', createProxyMiddleware({
 	},
 	changeOrigin: true,
 }));
+
+app.use('/', (_, res) => {
+	res.send('Hello World')
+});
 
 // Start Proxy
 app.listen(PORT, () => {
